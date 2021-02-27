@@ -1,5 +1,7 @@
 package br.edu.ifpb.report.controller;
 
+import br.edu.ifpb.report.database.DatabaseConnector;
+
 public abstract class Report {
 
     public void generate() {
@@ -8,9 +10,15 @@ public abstract class Report {
         convertToFile();
     }
 
-    public void createDatabaseConnection() {}
+    private void createDatabaseConnection() {
+        System.out.println("Creating Database Connection...");
+        DatabaseConnector connector = createDatabaseConnector();
+        connector.openConnection();
+    }
 
-    public void executeQuery() {}
+    abstract DatabaseConnector createDatabaseConnector();
 
-    public void convertToFile(){}
+    abstract void executeQuery();
+
+    abstract void convertToFile();
 }
